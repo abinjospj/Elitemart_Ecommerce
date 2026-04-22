@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<div class="hero-wrap hero-bread" style="background-image: url({{ category.image.url }});">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"></p>
+                    <span class="mr-2">
+                        <a href="index.html"></a>
+                    </span>
+                    <span></span>
+                </p>
+                <h1 class="mb-0 bread">{{ category.name }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for i in category.products.all %}
+        <div class="col-md-6 col-lg-3 mt-4"> 
+            <div class="product h-100 d-flex flex-column">
+                
+                <a href="{% url 'shop:productdetail' i.id %}" class="img-prod d-block " style="height:250px;">
+                    <img src="{{ i.image.url }}" class="w-100 h-100" style="object-fit: cover;" alt="Product Image">
+
+                    <div class="overlay"></div>
+                </a>
+
+                <div class="text py-3 pb-4 px-3 text-center justify-content-between">
+                    <div>
+                        <h3><a href="{% url 'shop:productdetail' i.id %}">{{ i.name }}</a></h3>
+                        <div class="pricing">
+                            <p class="price">
+                                <span class="price-sale">₹{{ i.price }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

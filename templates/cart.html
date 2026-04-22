@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+<div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_5.jpg' %});">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-0 bread">Cart</h1>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/styleicon.css' %}">
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+
+        <!-- Cart Table -->
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table table-bordered text-center ">
+
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in cart %}
+                            <tr>
+
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+
+                                <!-- Product Image -->
+                                <td class="image-prod">
+                                    <div class="img"
+                                        style="background-image:url({{ i.product.image.url }}); width:100px; height:100px; background-size:cover; margin:auto;">
+                                    </div>
+                                </td>
+
+                                <!-- Product Name -->
+                                <td class="product-name">
+                                    <h3>{{ i.product.name }}</h3>
+                                </td>
+
+                                <!-- Price -->
+                                <td class="price">
+                                    ₹{{ i.product.price }}
+                                </td>
+
+                                <!-- Quantity -->
+                                <td class="quantity">
+                                    <div class="qty-box">
+                                        <a href="{% url 'cart:cartdecrement' i.id %}" class="qty-btn minus">
+                                            <span class="ion-ios-remove"></span>
+                                        </a>
+
+                                        <span class="qty-value">{{ i.quantity }}</span>
+
+                                        <a href="{% url 'cart:addtocart' i.product.id %}" class="qty-btn plus">
+                                            <span class="ion-ios-add"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <!-- Total -->
+                                <td class="total">
+                                    ₹{{ i.subtotal }}
+                                </td>
+
+                                <!-- Remove -->
+                                <td class="product-remove">
+                                    <a href="{% url 'cart:cartremove' i.id %}"><span class="ion-ios-close"></span></a>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Summary Section -->
+        <div class="row justify-content-end">
+
+        
+
+
+
+            <!-- Total -->
+            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="cart-total mb-3">
+                    <h3>Cart Totals</h3>
+
+                    <p class="d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <span>{{ total }}</span>
+                    </p>
+
+                    <p class="d-flex justify-content-between">
+                        <span>Delivery</span>
+                        <span>₹0.00</span>
+                    </p>
+
+
+                    <hr>
+
+                    <p class="d-flex justify-content-between total-price">
+                        <strong>Total</strong>
+                        <strong>{{ total }}</strong>
+                    </p>
+                </div>
+
+                <a href="{% url 'cart:checkout' %}" class="btn btn-primary py-3 px-4">
+                    Proceed to Checkout
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
