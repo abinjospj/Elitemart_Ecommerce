@@ -10,6 +10,8 @@ User registration and login
 Checkout and order summary
 Online payment integration (Razorpay)
 Responsive design using Bootstrap
+
+
 Tech Stack
 Backend: Django (Python)
 Frontend: HTML, CSS, Bootstrap
